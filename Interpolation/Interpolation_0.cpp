@@ -2,6 +2,7 @@
 #include <fstream>
 #include <vector>
 #include <string>
+
 using std::cout;
 using std::cin;
 using std::endl;
@@ -42,7 +43,7 @@ void printResults(float x, float L, std::vector<float>& x_i, std::vector<float>&
     cout << "\nl_i: ";
     for (auto z : l_i) cout << z << "|";
     cout << "\nx: " << x << endl;
-    cout << "\L(x): " << L;
+    cout << "L(x): " << L;
     cout << endl;
 }
 std::fstream* file(std::string path) {
