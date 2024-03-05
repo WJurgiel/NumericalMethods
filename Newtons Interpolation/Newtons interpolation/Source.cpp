@@ -36,19 +36,21 @@ std::fstream* readFromFile(std::string filePath) {
 	return file;
 }
 double calculate_p_k(unsigned k, double x, std::vector<double>& x_i) {
+	// simple multiplication, it looks just like in the instructions
 	double p_k = 1;
-	for (unsigned i = 0; i < k-1; i++) {
+	for (unsigned i = 0; i <= k-1; i++) {
 		p_k *= (x - x_i[i]);
 	}
 	return p_k;
 }
 double calculate_b_k(unsigned k, double x, std::vector<double>& x_i, std::vector<double>& fx_i) {
+	// simple addition, with multiplication inside (denominator)
 	double b_k = 0;
-	double den = 1;
-	for (unsigned i = 0; i < k; i++)
+	double den = 1; //denominator, calculated in inner for loop
+	for (unsigned i = 0; i <= k; i++)
 	{
 		den = 1;
-		for (unsigned j = 0; j < k; j++) {
+		for (unsigned j = 0; j <= k; j++) {
 			if (j == i) continue;
 			den *= (x_i[i] - x_i[j]);
 		}
@@ -69,9 +71,11 @@ int main() {
 		AUXILIARY VALUES
 	*/
 	double aux_val = 0; // store value from file in it
-	bool isNode = true;
+	bool isNode = true; 
 	std::string aux_line;
+
 	if(file->bad()){
+		//exit when can't find/read file, why would we continue?
 		std::cout << "[ERROR]: Can't read the file\n";
 		return -1;
 	}
@@ -79,9 +83,8 @@ int main() {
 
 	std::getline((*file), aux_line); //skip the "Node count:\n"
 	(*file) >> node_count; 
-	//file->seekg(0, std::ios::beg);
-	std::getline((*file), aux_line);
-	std::getline((*file), aux_line);
+	std::getline((*file), aux_line); // skip the <node count>
+	std::getline((*file), aux_line); // skip the x_i\tfx_i\n
 	
 	while (*file >> aux_val) {
 		
@@ -90,24 +93,25 @@ int main() {
 	}
 
 	std::cout << "Input x: "; std::cin >> x;
-	p_0 = 1.0;
+	p_0 = 1.0; 
 	b_0 = fx_i[0];
 	k = 1;
 	
-	while (k <= node_count) {
-		/*
-			"something is no yes" ~ Sun Tzu "Art of war"
-			issue: 
-		*/
+	//bkpk is the sum of the multiplications for k <1, degree of polynomial (node_count -1)>
+	while (k < node_count) {
 		p_k = calculate_p_k(k,x, x_i);
 		b_k = calculate_b_k(k, x, x_i, fx_i);
 		bkpk += (p_k * b_k);
-		std::cout << "p_k: [" << k << "]: " << p_k << "\n";
+		//std::cout << "p_k: [" << k << "]: " << p_k << "\n"; //this doesn't have to printed, but b_k does
 		std::cout << "b_k: [" << k << "]: " << b_k << "\n";
 		k += 1;
 	}
 	w_x = (b_0 * p_0) + bkpk;
 	printOutput(x_i, fx_i, node_count, x, w_x);
+	/*
+		Results: w_x for x == 5.0 = 25
+				w_x for x == 10.0 = 100
+	*/
 
 	/*
 		CLEAN UP 
