@@ -1,0 +1,2 @@
+C:\Users\Wojtek\source\repos\NumericalMethods\Gauss' Elimation\Gauss\x64\Debug\Gauss.exe
+C:\Users\Wojtek\source\repos\NumericalMethods\Gauss Elimation\Gauss\x64\Debug\Gauss.exe

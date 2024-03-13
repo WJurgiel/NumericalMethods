@@ -11,8 +11,6 @@ C:\Users\Wojtek\source\repos\NumericalMethods\Interpolation\Interpolation_0.cpp(
           ]
 C:\Users\Wojtek\source\repos\NumericalMethods\Interpolation\Interpolation_0.cpp(87,23): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\Wojtek\source\repos\NumericalMethods\Interpolation\Interpolation_0.cpp(91,39): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\Wojtek\source\repos\NumericalMethods\Interpolation\Interpolation_0.cpp(103,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 C:\Users\Wojtek\source\repos\NumericalMethods\Interpolation\Interpolation_0.cpp(111,23): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\Wojtek\source\repos\NumericalMethods\Interpolation\Interpolation_0.cpp(113,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\Wojtek\source\repos\NumericalMethods\Interpolation\Interpolation_0.cpp(117,39): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   Interpolation.vcxproj -> C:\Users\Wojtek\source\repos\NumericalMethods\Interpolation\x64\Debug\Interpolation.exe

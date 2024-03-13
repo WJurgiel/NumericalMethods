@@ -1,0 +1,9 @@
+﻿  Gauss.cpp
+C:\Users\Wojtek\source\repos\NumericalMethods\Gauss Elimation\Gauss\Gauss.cpp(36,26): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Wojtek\source\repos\NumericalMethods\Gauss Elimation\Gauss\Gauss.cpp(81,27): warning C4244: 'argument': conversion from 'double' to '_Ty', possible loss of data
+          with
+          [
+              _Ty=float
+          ]
+C:\Users\Wojtek\source\repos\NumericalMethods\Gauss Elimation\Gauss\Gauss.cpp(62,14): warning C4101: 'n': unreferenced local variable
+  Gauss.vcxproj -> C:\Users\Wojtek\source\repos\NumericalMethods\Gauss Elimation\Gauss\x64\Debug\Gauss.exe

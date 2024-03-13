@@ -100,7 +100,7 @@ int main()
     //  f(x_i) = x^1/3
     // L(x) = ?
     cout << "\n-------TASK 2-------\n";
-    x = pow(50.0, 1.0 / 3.0);
+    //x = pow(50.0, 1.0 / 3.0);
     x_i.clear();
     fx_i.clear();
     l_i.clear();
@@ -113,8 +113,8 @@ int main()
         float val = pow(x, 1.0 / 3.0);
         fx_i.push_back(val);
     }
-    l_i = calculate_l_i(N, x, x_i);
-    LNx = calculate_Langrange_poly(N, x, fx_i, l_i);
+    l_i = calculate_l_i(N, 50, x_i);
+    LNx = calculate_Langrange_poly(N, 50, fx_i, l_i);
     printResults(x, LNx, x_i, fx_i, l_i);
 
 }
