@@ -1,0 +1,12 @@
+﻿  Pivoting.cpp
+C:\Users\Wojtek\source\repos\NumericalMethods\Gauss Pivoting\Pivoting\Pivoting.cpp(18,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Wojtek\source\repos\NumericalMethods\Gauss Pivoting\Pivoting\Pivoting.cpp(46,26): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Wojtek\source\repos\NumericalMethods\Gauss Pivoting\Pivoting\Pivoting.cpp(62,26): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Wojtek\source\repos\NumericalMethods\Gauss Pivoting\Pivoting\Pivoting.cpp(73,26): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Wojtek\source\repos\NumericalMethods\Gauss Pivoting\Pivoting\Pivoting.cpp(100,26): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Wojtek\source\repos\NumericalMethods\Gauss Pivoting\Pivoting\Pivoting.cpp(117,20): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+C:\Users\Wojtek\source\repos\NumericalMethods\Gauss Pivoting\Pivoting\Pivoting.cpp(135,25): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+C:\Users\Wojtek\source\repos\NumericalMethods\Gauss Pivoting\Pivoting\Pivoting.cpp(144,24): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Pivoting.vcxproj -> C:\Users\Wojtek\source\repos\NumericalMethods\Gauss Pivoting\Pivoting\x64\Debug\Pivoting.exe
+  'pwsh.exe' is not recognized as an internal or external command,
+  operable program or batch file.
