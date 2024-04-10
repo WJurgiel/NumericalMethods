@@ -1,0 +1,7 @@
+﻿  Doolittle Algorithm.cpp
+C:\Users\Wojtek\source\repos\NumericalMethods\Doolittle\Doolittle Algorithm\Doolittle Algorithm.cpp(68,21): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Wojtek\source\repos\NumericalMethods\Doolittle\Doolittle Algorithm\Doolittle Algorithm.cpp(109,32): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Wojtek\source\repos\NumericalMethods\Doolittle\Doolittle Algorithm\Doolittle Algorithm.cpp(132,32): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Doolittle Algorithm.vcxproj -> C:\Users\Wojtek\source\repos\NumericalMethods\Doolittle\Doolittle Algorithm\x64\Debug\Doolittle Algorithm.exe
+  'pwsh.exe' is not recognized as an internal or external command,
+  operable program or batch file.

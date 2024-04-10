@@ -7,7 +7,6 @@
 #include <algorithm>
 std::vector<std::vector<double>> matrix;
 
-
 std::fstream* read_from_file(std::string path) {
     std::fstream* file = new std::fstream;
     file->open(path, std::ios_base::in);
@@ -37,8 +36,7 @@ void print_solution(std::vector<double> sol) {
 }
 void print_solution(std::vector<double>& sol, const std::vector<int>& craut_columns) {
     for (size_t i = 0; i < sol.size(); ++i) {
-        int index = craut_columns[i];
-        std::cout << "x[" << index << "] = " << sol[i] << "\n";
+        std::cout << "x[" << craut_columns[i] << "]:" << sol[craut_columns[i]] << "\n";
     }
 }
 
@@ -105,33 +103,37 @@ void FindPivot(std::vector<std::vector<double>>& matrix, int col) {
     std::cout << "Index: " << indexOfMax;
     std::cout << "Value in " << indexOfMax << ": " << column[indexOfMax] << std::endl;
 
+    print_matrix(matrix);
     //matrix[indexofMax] <-> matrix[col]
     matrix[indexOfMax + col].swap(matrix[col]);
     std::cout << col << ":\n";
     GaussColumn(matrix, col);
 }
-void CrautFindPivot(std::vector<std::vector<double>>& matrix, std::vector<int>& cols, int diag) {
-    /*
-        Somehow, it's working as it should (i guess?), but god only knows how.
-    */
-    auto max_element_it = std::max_element(matrix.begin() + diag, matrix.end(),
-        [diag](const std::vector<double>& a, const std::vector<double>& b) {
-            return std::abs(a[diag]) < std::abs(b[diag]);
-        });
+void CrautFindPivot(std::vector<std::vector<double>>& matrix, std::vector<int>& rows, int diag) {
+   
+    auto max_element_it = std::max_element(matrix[diag].begin() + diag, matrix[diag].end() -1);
 
-    int indexOfMaxInRow = std::distance(matrix.begin(), max_element_it);
-    std::cout << "Index: " << indexOfMaxInRow;
-    std::cout << "Value in " << indexOfMaxInRow << ": " << matrix[diag][indexOfMaxInRow] << std::endl;
-    
-    std::swap(cols[diag], cols[indexOfMaxInRow]);
-    std::swap(matrix[diag], matrix[indexOfMaxInRow]);
-    
-    print_matrix(matrix);
+    int indexOfMaxInCol = std::distance(matrix[diag].begin(), max_element_it);
 
-    int n = cols.size();
-    for(int i = diag+1; i < n; i++)
+   
+   /* std::cout << "Matrix before pivoting:\n";
+    print_matrix(matrix);*/
+
+   
+    for (size_t i = 0; i < matrix.size(); ++i) {
+        std::swap(matrix[i][diag], matrix[i][indexOfMaxInCol]);
+    }
+    std::swap(rows[diag], rows[indexOfMaxInCol]);
+
+    
+   /* std::cout << "Matrix after column swaps:\n";
+    print_matrix(matrix);*/
+
+    int n = rows.size();
+    for (int i = diag + 1; i < n; i++)
         GaussColumn(matrix, diag, i);
 }
+
 
 bool ZeroOnDiagonal(std::vector<std::vector<double>> vec) {
 
@@ -178,40 +180,40 @@ int main()
     }*/
 
     /*SOLUTION TASK 1:*/
-    for (int col = 0; col < matrix[0].size()-1; col++) {
+    /*for (int col = 0; col < matrix[0].size() - 1; col++) {
         std::cout << "Column: " << col;
         FindPivot(matrix, col);
-    }
-    
+        
+    }*/
+
     /*SOLUTION TASK 2:*/
-    //std::vector<int> craut_columns = init_craut_columns(matrix);
-    //for (int diag = 0; diag < matrix[0].size()-1; diag++) {
-    //    //std::cout << "Column: " << diag;
-    //    CrautFindPivot(matrix,craut_columns, diag);
-    //}
-  
+    std::vector<int> craut_columns = init_craut_columns(matrix);
+    for (int diag = 0; diag < matrix[0].size()-1; diag++) {
+        //std::cout << "Column: " << diag;
+        CrautFindPivot(matrix,craut_columns, diag);
+    }
+
     std::cout << "After:\n";
-    print_matrix(matrix);   
-    /*
+    print_matrix(matrix);
     //TO TASK 2:
-    std::cout << "\nCols After:";
-    for (auto x : craut_columns) std::cout << x << " ";*/
-    
+    std::cout << "\nColumns After:";
+    for (auto x : craut_columns) std::cout << x << " ";
+
     //SOLUTION TASK 1:
-        std::vector<double> x_i = solve_system(matrix);
-        print_solution(x_i);
-    
+    /*std::vector<double> x_i = solve_system(matrix);
+    print_solution(x_i);*/
+
     /*
         SOLUTION TASK 2:
     */
-    /*std::vector<double> x_i = solve_system(matrix,craut_columns);
-    print_solution(x_i,craut_columns);*/
+    std::vector<double> x_i = solve_system(matrix,craut_columns);
+    print_solution(x_i,craut_columns);
 
 
-   /* 
-       //TO TASK 2
-   std::cout << "Columns: ";
-    for (auto x : craut_columns) std::cout << x << " ";*/
+    
+        //TO TASK 2
+    std::cout << "Columns: ";
+     for (auto x : craut_columns) std::cout << x << " ";
     std::cout << "\n";
     delete file;
     delete file2;
