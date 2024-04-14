@@ -5,6 +5,9 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
+
+const char* A_MATRIX_PATH = "A1.txt";
+const char* B_VECTOR_PATH = "B1.txt";
 std::vector<std::vector<double>> matrix;
 
 std::fstream* read_from_file(std::string path) {
@@ -29,15 +32,31 @@ void print_matrix(std::vector<std::vector<double>>& matrix) {
     std::cout << "\n\n";
 }
 void print_solution(std::vector<double> sol) {
+    std::ofstream* outfile = new std::ofstream;
+    outfile->open("solutions.txt");
+    if (outfile->bad()) {
+        std::cout << "Unable to write to file\n";
+        return;
+    }
     int counter = 0;
     for (auto x : sol) {
-        std::cout << "x[" << counter++ << "] = " << x << "\n";
+        std::cout << "x[" << counter << "] = " << x << "\n";
+        *outfile << "x[" << counter++ << "] = " << x << "\n";
     }
+    outfile->close();
 }
 void print_solution(std::vector<double>& sol, const std::vector<int>& craut_columns) {
+    std::ofstream* outfile = new std::ofstream;
+    outfile->open("solutions.txt");
+    if (outfile->bad()) {
+        std::cout << "Unable to write to file\n";
+        return;
+    }
     for (size_t i = 0; i < sol.size(); ++i) {
         std::cout << "x[" << craut_columns[i] << "]:" << sol[craut_columns[i]] << "\n";
+        *outfile << "x[" << craut_columns[i] << "]:" << sol[craut_columns[i]] << "\n";
     }
+    outfile->close();
 }
 
 std::vector<double> solve_system(std::vector<std::vector<double>>& matrix, const std::vector<int>& craut_columns) {
@@ -148,8 +167,8 @@ int main()
 {
     std::string line;
     double num;
-    std::fstream* file = read_from_file("Data3.txt");
-    std::fstream* file2 = read_from_file("Data4.txt");
+    std::fstream* file = read_from_file(A_MATRIX_PATH);
+    std::fstream* file2 = read_from_file(B_VECTOR_PATH);
     if (file->bad() || file2->bad()) {
         std::cout << "ERROR: can't read from file\n";
         return -1;
@@ -180,41 +199,41 @@ int main()
     }*/
 
     /*SOLUTION TASK 1:*/
-    /*for (int col = 0; col < matrix[0].size() - 1; col++) {
+    for (int col = 0; col < matrix[0].size() - 1; col++) {
         std::cout << "Column: " << col;
         FindPivot(matrix, col);
         
-    }*/
-
-    /*SOLUTION TASK 2:*/
-    std::vector<int> craut_columns = init_craut_columns(matrix);
-    for (int diag = 0; diag < matrix[0].size()-1; diag++) {
-        //std::cout << "Column: " << diag;
-        CrautFindPivot(matrix,craut_columns, diag);
     }
 
-    std::cout << "After:\n";
-    print_matrix(matrix);
+    /*SOLUTION TASK 2:*/
+    //std::vector<int> craut_columns = init_craut_columns(matrix);
+    //for (int diag = 0; diag < matrix[0].size()-1; diag++) {
+    //    //std::cout << "Column: " << diag;
+    //    CrautFindPivot(matrix,craut_columns, diag);
+    //}
+
+    //std::cout << "After:\n";
+    //print_matrix(matrix);
     //TO TASK 2:
-    std::cout << "\nColumns After:";
-    for (auto x : craut_columns) std::cout << x << " ";
+   /* std::cout << "\nColumns After:";
+    for (auto x : craut_columns) std::cout << x << " ";*/
 
     //SOLUTION TASK 1:
-    /*std::vector<double> x_i = solve_system(matrix);
-    print_solution(x_i);*/
+    std::vector<double> x_i = solve_system(matrix);
+    print_solution(x_i);
 
     /*
         SOLUTION TASK 2:
     */
-    std::vector<double> x_i = solve_system(matrix,craut_columns);
-    print_solution(x_i,craut_columns);
+    /*std::vector<double> x_i = solve_system(matrix,craut_columns);
+    print_solution(x_i,craut_columns);*/
 
 
     
         //TO TASK 2
-    std::cout << "Columns: ";
+  /*  std::cout << "Columns: ";
      for (auto x : craut_columns) std::cout << x << " ";
-    std::cout << "\n";
+    std::cout << "\n";*/
     delete file;
     delete file2;
     return 0;

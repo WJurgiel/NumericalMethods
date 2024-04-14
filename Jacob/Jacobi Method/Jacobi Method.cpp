@@ -15,7 +15,6 @@
     6. Wypisac D^-1 - done
     7 wypisac zadana liczbe iteracji i rozwiazac uk. równ
     8 oblicz blad bezwzgledny dla kazdego x
-    Tyle roboty, na 7 pkt, panie XD
 */
 using Matrix = std::vector<std::vector<double>>;
 bool isWeakDominant(std::vector<std::vector<double>> matrix_AB) {
@@ -45,14 +44,14 @@ bool shouldStop(std::vector<double> x, std::vector<double> x_prev, const double 
     }
     return false;
 }
-std::vector<double> JacobiMethod(Matrix matrix_AB, std::vector<std::vector<double>> matrix_D_rev, Matrix matrix_L_U, int iterations, const double eps) {
+std::vector<double> JacobiMethod(Matrix matrix_AB, Matrix matrix_D_rev, Matrix matrix_L_U, std::vector<double> results, int iterations, const double eps) {
     std::vector<double>x(matrix_AB.size(), 0);
     std::vector<double> x_prev = x;
 
     Matrix min_D_rev = matrix_D_rev * -1;
     Matrix min_D_rev_L_U = min_D_rev * matrix_L_U;
-    const std::vector<double> vec1 = { 5, -4, 2, 7 };
-    std::vector<double> D_rev_B = matrix_D_rev * vec1;
+    //const std::vector<double> vec1 = { 5, -4, 2, 7 };
+    std::vector<double> D_rev_B = matrix_D_rev * results;
 
     for (int it = 0; it < iterations; it++) {
         
@@ -67,14 +66,21 @@ std::vector<double> JacobiMethod(Matrix matrix_AB, std::vector<std::vector<doubl
         x_prev = x;
         std::cout << "It: " << it << "\n";
         if (shouldStop(x_new, x_prev, eps)) {
-            std::cout << "Breaking after " << it << " iterations\n";
+            std::cout << "\nBreaking after " << it << " iterations\nEpsilon = " << eps << "\n";
             break;
         }
         x = x_new;
     }
     return x;
 }
-
+std::vector<double> absolute_Error(std::vector<double> sol_acc, std::vector<double> sol_measured) {
+    std::vector<double> errors;
+    for (int id = 0; id < sol_acc.size(); id++) {
+        double res = abs(sol_acc[id] - sol_measured[id]);
+        errors.push_back(res);
+    }
+    return errors;
+}
 int main()
 {
     /*
@@ -82,7 +88,12 @@ int main()
     */
     std::fstream* fileA = open_file("A.txt");
     std::fstream* fileB = open_file("B.txt");
+    std::fstream* fileSol = open_file("Gauss_solutions.txt");
     std::vector<std::vector<double>> matrix_AB = read_files_content(fileA, fileB);
+    
+    fileB = open_file("B.txt");
+    std::vector<double> matrix_B = read_file_content(fileB);
+    std::vector<double> gaussSolutions = read_file_content(fileSol);
     int size = matrix_AB.size();
     std::vector<std::vector<double>> matrix_L(size, std::vector<double>(size, 0));
     std::vector<std::vector<double>> matrix_D(size, std::vector<double>(size, 0));
@@ -112,23 +123,37 @@ int main()
         }
     } while (iterations < 0);
 
-    Matrix m = matrix_D_reversed * matrix_L_U;
-    std::vector<double> v1 = { 1.0, 2.0, 3.0, 4.0 };
-    std::vector<double> v = v1 + v1;
+    //Matrix m = matrix_D_reversed * matrix_L_U;
+    //std::vector<double> v1 = { 1.0, 2.0, 3.0, 4.0 };
+    //std::vector<double> v = v1 + v1;
 
     //Task 2 - uncomment one of sol and read_vector(sol)
-    std::vector<double> sol = JacobiMethod(matrix_AB, matrix_D_reversed, matrix_L_U, iterations, EPSILON);
+    std::vector<double> sol = JacobiMethod(matrix_AB, matrix_D_reversed, matrix_L_U, matrix_B, iterations, EPSILON);
     //std::vector<double> sol = JacobiMethod(matrix_AB, matrix_D_reversed, matrix_L_U, iterations, EPSILON2);
     read_vector(sol);
     //wrzuciæ matrxi do Gaussa, zanotowaæ wyniki, obliczyc blad bezwzglledny
 
     /*OUTPUT*/
-   /*read_matrix(matrix_L_U);
+    std::cout << "AB matrix:\n";
+    read_matrix(matrix_AB);
+    std::cout << "L+U matrix:\n";
+    read_matrix(matrix_L_U);
+    std::cout << "D^-1 matrix:\n";
     read_matrix(matrix_D_reversed);
-    read_matrix(m);
+   /* read_matrix(m);
     read_vector(v);*/
-    if (isWeakDominant(matrix_AB)) std::cout << "Diagonally weak dominant\n";
-    else std::cout << "Is not diagonally weak dominant\n";
+    if (isWeakDominant(matrix_AB)) std::cout << "Diagonally weak dominant\n\n";
+    else std::cout << "Is not diagonally weak dominant\n\n";
 
+    
+    std::cout << "Calculated by Gauss half pivoting method:\n";
+    read_vector(gaussSolutions);
+    std::vector<double> errors = absolute_Error(gaussSolutions, sol);
+    std::cout << "Absolute errors:\n";
+    read_vector(errors);
+
+    delete fileA;
+    delete fileB;
+    delete fileSol;
 }
 

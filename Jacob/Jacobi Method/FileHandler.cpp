@@ -27,3 +27,15 @@ std::vector<std::vector<double>> read_files_content(std::fstream* fileA, std::fs
     fileB->close();
     return matrix;
 }
+std::vector<double> read_file_content(std::fstream* file) {
+    std::string line;
+    std::vector<double> toReturn;
+    while (std::getline((*file), line)) {
+        std::stringstream ss(line);
+        double num;
+        ss >> num;
+        toReturn.push_back(num);
+    }
+    file->close();
+    return toReturn;
+}
