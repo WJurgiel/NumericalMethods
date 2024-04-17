@@ -1,0 +1,2 @@
+C:\Users\Wojtek\source\repos\NumericalMethods\Integration\Integration_Methods\x64\Debug\Integration_Methods.exe
+C:\Users\Wojtek\source\repos\NumericalMethods\Integration_Methods\x64\Debug\Integration_Methods.exe

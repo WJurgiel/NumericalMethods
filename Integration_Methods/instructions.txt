@@ -1,0 +1,8 @@
+HINT 1: provide custom equation (containing ALL AND ONLY factors, x, and exponents)
+example: 3x^2 - 1x + 1;
+HINT 2: if you want to calculate predefined functions just write:
+	for sine: "sin"
+	for cosine "cos"
+	for tangens "tan"
+	for logarithm: "log"
+	for exponental: "exp"
