@@ -1,4 +1,13 @@
 ﻿  Source.cpp
+C:\Users\Wojtek\source\repos\NumericalMethods\Integration_Methods\Source.cpp(65,50): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Wojtek\source\repos\NumericalMethods\Integration_Methods\Source.cpp(66,52): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Wojtek\source\repos\NumericalMethods\Integration_Methods\Source.cpp(67,52): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Wojtek\source\repos\NumericalMethods\Integration_Methods\Source.cpp(73,51): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Wojtek\source\repos\NumericalMethods\Integration_Methods\Source.cpp(74,53): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Wojtek\source\repos\NumericalMethods\Integration_Methods\Source.cpp(75,53): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Wojtek\source\repos\NumericalMethods\Integration_Methods\Source.cpp(82,50): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Wojtek\source\repos\NumericalMethods\Integration_Methods\Source.cpp(83,52): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Wojtek\source\repos\NumericalMethods\Integration_Methods\Source.cpp(84,52): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
   Integration_Methods.vcxproj -> C:\Users\Wojtek\source\repos\NumericalMethods\Integration_Methods\x64\Debug\Integration_Methods.exe
   'pwsh.exe' is not recognized as an internal or external command,
   operable program or batch file.

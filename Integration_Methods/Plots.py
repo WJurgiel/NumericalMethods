@@ -1,22 +1,27 @@
 import matplotlib.pyplot as plt
 import numpy as np
-with open("CustomIntegral.txt", "r") as sine:
-    data = sine.readlines()
 
-x_values = []
-y_values = []
+def createPlot(path, title, ylim_0, ylim_1, tick ): 
+    with open(path, "r") as file:
+        data = file.readlines()
 
-for line in data:
-    x, y = map(float, line.split())
-    x_values.append(x)
-    y_values.append(y)
+    x_values = []
+    y_values = []
 
-plt.plot(x_values, y_values)
-plt.xlabel('N')
-plt.ylabel("Value")
-plt.title("custom integrity")
+    for line in data:
+        x, y = map(float, line.split())
+        x_values.append(x)
+        y_values.append(y)
 
-plt.ylim(88.85, 89)
-plt.yticks(np.arange(88.85, 89.001 , 0.05))
-plt.grid(True)
-plt.show()
+    plt.plot(x_values, y_values)
+    plt.xlabel('N')
+    plt.ylabel("Value")
+    plt.title(title)
+
+    plt.ylim(ylim_0, ylim_1)
+    plt.yticks(np.arange(ylim_0,ylim_1 , tick))
+    
+    plt.grid(True)
+    plt.show()
+
+createPlot("SineIntegralSimpTRAPEZE.txt", "SIN(X)integrity - TRAPEZE",-2, 1, 0.5 )
