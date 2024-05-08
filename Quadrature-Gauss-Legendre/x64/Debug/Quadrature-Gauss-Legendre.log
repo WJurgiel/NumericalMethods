@@ -1,5 +1,5 @@
 ﻿  Source.cpp
-C:\Users\Wojtek\source\repos\NumericalMethods\Quadrature-Gauss-Legendre\Source.cpp(53,9): warning C4101: 'ptr': unreferenced local variable
+C:\Users\Wojtek\source\repos\NumericalMethods\Quadrature-Gauss-Legendre\Source.cpp(82,9): warning C4101: 'ptr': unreferenced local variable
   Quadrature-Gauss-Legendre.vcxproj -> C:\Users\Wojtek\source\repos\NumericalMethods\Quadrature-Gauss-Legendre\x64\Debug\Quadrature-Gauss-Legendre.exe
   'pwsh.exe' is not recognized as an internal or external command,
   operable program or batch file.

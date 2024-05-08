@@ -1,12 +1,41 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <fstream>
+#include <string>
+#include <sstream>
 #include "FunctionHandler.h"
 #define SMALL_NUM 1e-05
 using Factors = std::vector<float>;
 using Exponents = std::vector<int>;
 using Operators = std::vector<char>;
 using Matrix = std::vector<std::vector<double>>;
+
+enum functions {
+	SINE,
+	FUNC,
+	EXP
+};
+
+double getLastValue(std::string path) {
+	std::fstream file(path);
+	std::string lastLine;
+	double value;
+	if (!file.is_open()) {
+		return 0.0;
+	}
+	else {
+		std::string line;
+		while (std::getline(file, line)) {
+			lastLine = line;
+		}
+	}
+	file.close();
+	std::stringstream ss(lastLine);
+	ss >> value >> value;
+
+	return value;
+}
 
 /// <summary>
 /// [0] -> x_i
@@ -75,6 +104,19 @@ double absolute_err(double actual, double result) {
 	//std::cout << "Result: " << result << "\t small_num: " << SMALL_NUM << "\n";
 	return (res < SMALL_NUM) ? 0 : res;
 }
+void print_results(int func_id, std::string func, std::string range, const Matrix& results, const Matrix& prev_results, const std::vector<double>& actual_results, const Matrix& errors) {
+	std::cout << "\n--------------\n" << func << ":\n" << range << "\n";
+	std::cout << "node_count = 2: " << results[func_id][0];
+	std::cout << "\nnode_count = 3: " << results[func_id][1];
+	std::cout << "\nnode_count = 4: " << results[func_id][2];
+	std::cout << "\nSquare|Trapeze|Simpson: " << prev_results[func_id][0] << "|" << prev_results[func_id][1] << "|" << prev_results[func_id][2];
+	std::cout << "\nActual: " << actual_results[func_id];
+	std::cout << "\nabs_err for Gauss Legrenge quadrature node_count 4: " << errors[func_id][0];
+	std::cout << "\nabs_err for Square Method: " << errors[func_id][1];
+	std::cout << "\nabs_err for Trapeze Method: " << errors[func_id][2];
+	std::cout << "\nabs_err for Simpson method: " << errors[func_id][3];
+	
+}
 int main() {
 	std::string _function = "1x^2 + 2x^1 + 5x^0";
 	Factors _f = find_factors(_function);
@@ -93,9 +135,9 @@ int main() {
 	/// </summary>
 	/// <returns></returns>
 	const Matrix prev_results = {
-		{1.6795,1.67718, 1.68929},
-		{88.854,88.9171,88.875},
-		{146.422,147.45, 159.474}
+		{getLastValue("sine_square.txt"),getLastValue("sine_trapeze.txt"), getLastValue("sine_simpson.txt")},
+		{getLastValue("fun_square.txt"),getLastValue("fun_trapeze.txt"),getLastValue("fun_simpson.txt")},
+		{getLastValue("exp_square.txt"),getLastValue("exp_trapeze.txt"), getLastValue("exp_simpson.txt")}
 	};
 	/// <summary>
 	/// Results from the current laboratories stored in matrix
@@ -112,44 +154,37 @@ int main() {
 	};
 
 	/// <summary>
-	/// Absolute errors for appropiately Gauss-Legrenge qudrature node_count = 4 and simpson method
+	/// Absolute errors for 
+	/// {node_count = 4, square, trapeze, simpson}
 	/// [0] -> sine
 	/// [1] -> function
 	/// [2] -> exp
 	/// </summary>
 	/// <returns></returns>
 	const Matrix errors = {
-		{absolute_err(actual_results[0], results[0][2]), absolute_err(actual_results[0], prev_results[0][2])},
-		{absolute_err(actual_results[1], results[1][2]), absolute_err(actual_results[1], prev_results[1][2])},
-		{absolute_err(actual_results[2], results[2][2]), absolute_err(actual_results[2], prev_results[2][2])}
+		{	
+			absolute_err(actual_results[SINE], results[SINE][2]),         // node_count = 4
+			absolute_err(actual_results[SINE],prev_results[SINE][0]),    //square
+			absolute_err(actual_results[SINE],prev_results[SINE][1]),   //trapeze
+			absolute_err(actual_results[SINE], prev_results[SINE][2])  //simpson
+		},
+		{	
+			absolute_err(actual_results[FUNC], results[FUNC][2]), 	     // node_count = 4
+			absolute_err(actual_results[FUNC], prev_results[FUNC][0]),  //square
+			absolute_err(actual_results[FUNC], prev_results[FUNC][1]), //trapeze
+			absolute_err(actual_results[FUNC], prev_results[FUNC][2]) //simpson
+		},
+		{
+			absolute_err(actual_results[EXP], results[EXP][2]),		    // node_count = 4
+			absolute_err(actual_results[EXP], prev_results[EXP][0]),   //square
+			absolute_err(actual_results[EXP], prev_results[EXP][1]),  //trapeze
+			absolute_err(actual_results[EXP], prev_results[EXP][2])	 //simpson
+		}
 	};
 
-	std::cout << "sin(x):\n<0.5, 2.5>\n";
-	std::cout << "node_count = 2: " << results[0][0];
-	std::cout << "\nnode_count = 3: " << results[0][1];
-	std::cout << "\nnode_count = 4: " << results[0][2];
-	std::cout << "\nSquare|Trapeze|Simpson: " << prev_results[0][0] << "|" << prev_results[0][1] << "|" << prev_results[0][2];
-	std::cout << "\nActual: " << actual_results[0];
-	std::cout << "\nabs_err for Gauss Legrenge quadrature node_count 4: " << errors[0][0];
-	std::cout << "\nabs_err for Simpson method: " << errors[0][1];
-
-	std::cout << "\n----------\n"<<_function << "\n<0.5, 5>\n";
-	std::cout << "node_count = 2: " << results[1][0];
-	std::cout << "\nnode_count = 3: " << results[1][1];
-	std::cout << "\nnode_count = 4: " << results[1][2];
-	std::cout << "\nSquare|Trapeze|Simpson: " << prev_results[1][0] << "|" << prev_results[1][1] << "|" << prev_results[1][2];
-	std::cout << "\nActual: " << actual_results[1];
-	std::cout << "\nabs_err for Gauss Legrenge quadrature node_count 4: " << errors[1][0];
-	std::cout << "\nabs_err for Simpson method: " << errors[1][1];
-
-	std::cout << "\n----------\nexp(x):\n<0.5, 5.0>\n";
-	std::cout << "node_count = 2: " << results[2][0];
-	std::cout << "\nnode_count = 3: " << results[2][1];
-	std::cout << "\nnode_count = 4: " << results[2][2];
-	std::cout << "\nSquare|Trapeze|Simpson: " << prev_results[2][0] << "|" << prev_results[2][1] << "|" << prev_results[2][2];
-	std::cout << "\nActual: " << actual_results[2];
-	std::cout << "\nabs_err for Gauss Legrenge quadrature node_count 4: " << errors[2][0];
-	std::cout << "\nabs_err for Simpson method: " << errors[2][1];
+	print_results(SINE, "sin(x)", "<0.5,2.5>", results, prev_results, actual_results, errors);
+	print_results(FUNC, _function, "<0.5,5>", results, prev_results, actual_results, errors);
+	print_results(EXP, "exp(x)", "<0.5, 5>", results, prev_results, actual_results, errors);
 
 	return 0;
 }
