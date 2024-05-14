@@ -109,7 +109,7 @@ Vector calculate_Fx(Matrix points, Vector a_j, Matrix phi_j, int m, int n) {
 	for (int i = 0; i <= m; i++) {
 		double F_xi = 0;
 		for (int j = 0; j <= n; j++) {
-			F_xi = a_j[j] * phi_j[j][i];
+			F_xi += a_j[j] * phi_j[j][i];
 		}
 		F_x.push_back(F_xi);
 	}
@@ -126,6 +126,18 @@ void print_matrix(Matrix mat) {
 		std::cout << "\n";
 	} 
 	std::cout << "\n";
+}
+void print_a_vector(Vector a_j) {
+	for (int j = 0; j < a_j.size(); j++) {
+		std::cout << "[" << j << "]: " << a_j[j] <<"\n";
+	}
+}
+void print_detailed_result(Matrix points, Vector F_x) {
+	std::cout << "---------------------\nx_i\tf(x_i)\tF(x_i)\n";
+	for (int i = 0; i < points.size(); i++) {
+		std::cout << points[i][X] << "\t" << points[i][Y] << "\t" << F_x[i] << "\n";
+	}
+	std::cout << "---------------------\n";
 }
 Matrix merge_system(Matrix g, Vector F, int n) {
 	Matrix toReturn = g;
@@ -167,7 +179,7 @@ int main() {
 	m = points.size() - 1;
 	w_i = set_w(1, points);
 
-	print_matrix(points);
+	//print_matrix(points);
 	phi_j = set_phi(points, n);
 	phi_k = phi_j;
 
@@ -186,10 +198,11 @@ int main() {
 	F_x = calculate_Fx(points, a_j, phi_j, m, n);
 	/*Final results*/
 	std::cout << "Liczba wezlow: " << points.size() << "\n";
-	std::cout << "wspolczynniki a_i:\n";
-	print_matrix(Matrix{ {a_j} });
-	std::cout << "F_x:\n";
-	print_matrix(Matrix{ {F_x} });
+	std::cout << "wspolczynniki a_j:\n";
+	print_a_vector(a_j);
+	//print_matrix(Matrix{ {a_j} });
+	print_detailed_result(points, F_x);
+
 
 
 	return 0;
